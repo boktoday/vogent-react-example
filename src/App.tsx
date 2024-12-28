@@ -15,7 +15,7 @@ type VogentDial = {
   sessionId: string;
 }
 
-const baseUrl = 'https://api.staging.vogent.ai';
+const baseUrl = 'https://api.getelto.com';
 
 // IMPORTANT: Make sure to replace this with a server-side implementation. You
 // should not expose your API keys to the client.
@@ -88,7 +88,7 @@ function CallControls(props: {
             onClick={async () => {
               await vogentCall.hangup();
             }}>
-              <PhoneXMarkIcon style={{ width: '1rem', height: '1rem' }} />
+            <PhoneXMarkIcon style={{ width: '1rem', height: '1rem' }} />
           </Button>
           <Button onClick={() => {
             vogentCall.setPaused(!isPaused).then(() => {
@@ -256,45 +256,42 @@ function App() {
         marginTop: '5rem',
       }}>
         {!callStatus && (
-          <Flex direction={"column"} gap={"3"} align={"center"} justify={"center"}>
-            <Button
-              className="w-full"
-              onClick={handleBrowserDialClicked}>
-              {connecting ? (
-                <div>
-                  <span>Connecting Audio</span>
-                  <Spinner />
-                </div>
-              ) : (
+          !connecting ? (
+            <Flex direction={"column"} gap={"3"} align={"center"} justify={"center"}>
+              <Button
+                className="w-full"
+                onClick={handleBrowserDialClicked}>
                 <div>
                   <span>Browser Call</span>
                 </div>
-              )}
-            </Button>
-            <Separator style={{
-              width: '100%',
-            }}/>
-            <Flex align={"center"} gap={"3"}>
-              <PhoneInput
-                country={'us'}
-                value={phone}
-                onChange={phone => setPhone(phone)}
-              />
-              <Button
-                className="w-full"
-                onClick={handlePhoneDialClicked}>
-                {connecting ? (
-                  <div>
-                    <span>Connecting Audio</span>
-                    <Spinner />
-                  </div>
-                ) : (
-                  <div>
-                    <span>Phone Call</span>
-                  </div>
-                )}
               </Button>
+              <Separator style={{
+                width: '100%',
+              }} />
+              <Flex align={"center"} gap={"3"}>
+                <PhoneInput
+                  country={'us'}
+                  value={phone}
+                  onChange={phone => setPhone(phone)}
+                />
+                <Button
+                  className="w-full"
+                  onClick={handlePhoneDialClicked}>
+                  {connecting ? (
+                    <div>
+                      <span>Connecting Audio</span>
+                      <Spinner />
+                    </div>
+                  ) : (
+                    <div>
+                      <span>Phone Call</span>
+                    </div>
+                  )}
+                </Button>
+              </Flex>
             </Flex>
+          ) : <Flex direction={"column"} gap={"3"} align={"center"} justify={"center"}>
+            Connecting...
           </Flex>
         )}
         {callStatus && vogentCallRef.current &&
@@ -313,24 +310,24 @@ function App() {
           ) : (
             <CheckCircleIcon style={{ width: '2rem', height: '2rem' }} />
           ))}
-          <Card style={{
-            width: '100%',
+        <Card style={{
+          width: '100%',
+        }}>
+          {transcript ? (
+            <Flex direction={"column"} gap={"3"}>
+              {transcript.map((t) => (
+                <Flex direction={"column"} gap={"1"}>
+                  <Text size={"1"} color={"gray"}>{t.speaker}</Text>
+                  <Text>{t.text}</Text>
+                </Flex>
+              ))}
+            </Flex>
+          ) : <Flex justify={"center"} align={"center"} style={{
+            height: '10rem',
           }}>
-            {transcript ? (
-              <Flex direction={"column"} gap={"3"}>
-                {transcript.map((t) => (
-                  <Flex direction={"column"} gap={"1"}>
-                    <Text size={"1"} color={"gray"}>{t.speaker}</Text>
-                    <Text>{t.text}</Text>
-                  </Flex>
-                ))}
-              </Flex>
-            ) : <Flex justify={"center"} align={"center"} style={{
-              height: '10rem',
-            }}>
-              <Text>No transcript yet</Text>
-            </Flex>}
-          </Card>
+            <Text>No transcript yet</Text>
+          </Flex>}
+        </Card>
       </Flex>
     </Flex>
   );
