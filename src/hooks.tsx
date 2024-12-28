@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { VogentCall, Transcript } from "@vogent/vogent-web-client/VogentCall";
+import { VogentCall, Transcript } from "@vogent/vogent-web-client";
 import { useEffect } from "react"
 
 export const useLiveTranscript = (props: {

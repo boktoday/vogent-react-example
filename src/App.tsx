@@ -1,11 +1,9 @@
 import { useCallback, useRef, useState } from 'react'
 import './App.css'
 import { Button, Card, Flex, Separator, Spinner, Text } from '@radix-ui/themes'
-import { VogentCall } from '@vogent/vogent-web-client/VogentCall'
-import { dialStatusIsComplete } from '@vogent/vogent-web-client/utils'
+import { VogentCall, dialStatusIsComplete, VogentAudioConn } from '@vogent/vogent-web-client'
 import { CheckCircleIcon, PhoneXMarkIcon } from '@heroicons/react/24/solid'
 import { useLiveTranscript } from './hooks'
-import { VogentAudioConn } from '@vogent/vogent-web-client/devices/VogentDevice'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/plain.css'
 

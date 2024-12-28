@@ -12,7 +12,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@radix-ui/themes": "^3.1.6",
-    "@vogent/vogent-web-client": "link:../vogent-web-client",
+    "@vogent/vogent-web-client": "^0.0.7",
     "heroicons": "^2.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

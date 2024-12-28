@@ -1333,9 +1333,15 @@
     "@types/babel__core" "^7.20.5"
     react-refresh "^0.14.2"
 
-"@vogent/vogent-web-client@link:../vogent-web-client":
-  version "0.0.0"
-  uid ""
+"@vogent/vogent-web-client@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@vogent/vogent-web-client/-/vogent-web-client-0.0.7.tgz#360a03d2aae239a06e218b90b2a62fd83a8c34a3"
+  integrity sha512-OUq2YiaLuRaB7BjLBC2ost/xilK7UD1uVXAJyOXSEsEz0Nugvb900jl+S7r2RlmxPWUzIZSgDhvED7imnoCeEg==
+  dependencies:
+    "@apollo/client" "^3.12.4"
+    "@vonage/client-sdk" "^1.7.2"
+    graphql "^16.10.0"
+    graphql-ws "^5.16.0"
 
 "@vonage/client-sdk@^1.7.2":
   version "1.7.2"
@@ -1829,6 +1835,11 @@ graphql-tag@^2.12.6:
   integrity sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==
   dependencies:
     tslib "^2.1.0"
+
+graphql-ws@^5.16.0:
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.16.0.tgz#849efe02f384b4332109329be01d74c345842729"
+  integrity sha512-Ju2RCU2dQMgSKtArPbEtsK5gNLnsQyTNIo/T7cZNp96niC1x0KdJNZV0TIoilceBPQwfb5itrGl8pkFeOUMl4A==
 
 graphql@^16.10.0:
   version "16.10.0"
