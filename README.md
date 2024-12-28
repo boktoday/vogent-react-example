@@ -1,50 +1,19 @@
-# React + TypeScript + Vite
+# Vogent React Example App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app includes an example of both working with browser calls and monitoring phone calls with the `@vogent/vogent-web-client` package. To run application, you can run:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+VITE_VOGENT_API_KEY={api_key} VITE_CALL_AGENT_ID={agent_id} VITE_FROM_PHONE_NUMBER_ID={number_id} yarn run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Security Note
+Make sure you **do not** use the functions `createBrowserDial` and `createPhoneDial` in production client code. These functions use your API keys, which should not be exposed to any client code. The API calls return a `dialToken` which is safe to share with the client, and can only be used to control that specific dial.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Monitoring Transcripts
+We immediately monitor the transcript for these calls with `VogentCall.monitorTranscript` -- see `src/hooks.tsx` for the implementation of live transcription monitoring.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Notes on Browser Calls
+To create browser calls, we first create the dial with the Vogent API, and then create the `VogentCall` with the API response from `createBrowserDial` passed as arguments. We call `connectAudio` on the resulting `VogentCall` object immediately, to start the call. You can use the `VogentAudioConn` returned by `connectAudio` to mute/unmute the audio, and to disconnect the audio connection.
+
+## Notes on Phone Calls
+Phone calls in the sample app don't immediately patch into the call audio. You'll have to patch into the call manually, which will call `connectAudio` with `liveListen` set to `true`. Any time you want to patch into a pre-existing call, you should call `connectAudio` with this flag set to `true`.
